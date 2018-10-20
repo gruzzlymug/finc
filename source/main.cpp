@@ -1,6 +1,10 @@
-#include "order_book.h"
+// TODO fix include directory config
+#include "../include/order_book.h"
+
+#include <iostream>
 
 using namespace finc;
+using namespace std;
 
 class order
 {
@@ -11,6 +15,8 @@ private:
 
 int main()
 {
+    cout << "Order Book Test\n";
+
     order_book<order> book;
     book.add_order();
 }
