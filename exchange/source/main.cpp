@@ -15,7 +15,7 @@ private:
 
 int main()
 {
-    cout << "Order Book Test\n";
+    cout << "Order Book Test ][\n";
 
     order_book<order> book;
     book.add_order();
