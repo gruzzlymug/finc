@@ -11,5 +11,7 @@ include_path_list := $(def_path)/include
 
 #compiler_flag_list := -Wno-crappy-warnings
 
+source_lib_list := zmq
+
 # Source files to be built
 source_list := main.cpp
