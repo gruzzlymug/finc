@@ -1,5 +1,4 @@
-// TODO fix include directory config
-#include "../include/order_book.h"
+#include "order_book.h"
 
 #include <iostream>
 
