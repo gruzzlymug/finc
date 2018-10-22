@@ -1,4 +1,4 @@
-name := finc
+name := exchange
 lang := cpp
 type := bin
 
