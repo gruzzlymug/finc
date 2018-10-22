@@ -1,22 +1,10 @@
-#include "order_book.h"
+#include <iostream>
 
 #include <zmq.h>
 
-#include <iostream>
-#include <thread>
-
-using namespace finc;
 using namespace std;
 
-class order
-{
-private:
-    int quantity_;
-    int price_;
-    bool side_;
-};
-
-void listen()
+void send_message()
 {
     cout << "Connecting to bus…\n";
     void *context = zmq_ctx_new();
@@ -27,11 +15,11 @@ void listen()
     int seq_num = 0;
     while (true) {
         cout << "Sending message " << seq_num << "…\n";
-        zmq_send(requester, "Hello\0", 6, 0);
+        zmq_send(requester, "35=D|\0", 6, 0);
         zmq_recv(requester, buffer, 10, 0);
         cout << "Received reply " << seq_num << "\n";
         ++seq_num;
-        if (seq_num > 8) break;
+        if (seq_num > 0) break;
     }
     zmq_close(requester);
     zmq_ctx_destroy(context);
@@ -39,12 +27,9 @@ void listen()
 
 int main()
 {
-    cout << "Order Book Test ][\n";
+    cout << "Starting FIX Gateway\n";
 
-    order_book<order> book;
-    book.add_order();
+    send_message();
 
-    thread listener(listen);
-
-    listener.join();
+    return 0;
 }

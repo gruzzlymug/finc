@@ -6,6 +6,8 @@
 
 int main(void)
 {
+    printf("Starting bus\n");
+
     // Socket to talk to clients
     void *context = zmq_ctx_new();
     void *responder = zmq_socket(context, ZMQ_REP);
