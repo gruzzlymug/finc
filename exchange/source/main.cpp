@@ -3,6 +3,7 @@
 #include <zmq.h>
 
 #include <iostream>
+#include <thread>
 
 using namespace finc;
 using namespace std;
@@ -10,24 +11,27 @@ using namespace std;
 class order
 {
 private:
-    bool side_;
+    int quantity_;
     int price_;
+    bool side_;
 };
 
-void thing()
+void listen()
 {
-    cout << "Connecting to hello world server…\n";
+    cout << "Connecting to bus…\n";
     void *context = zmq_ctx_new();
     void *requester = zmq_socket(context, ZMQ_REQ);
     zmq_connect(requester, "tcp://localhost:5555");
 
-    int request_nbr;
-    for (request_nbr = 0; request_nbr != 10; request_nbr++) {
-        char buffer[10];
-        cout << "Sending Hello " << request_nbr << "…\n";
-        zmq_send(requester, "Hello", 5, 0);
+    char buffer[10];
+    int seq_num = 0;
+    while (true) {
+        cout << "Sending message " << seq_num << "…\n";
+        zmq_send(requester, "Hello\0", 6, 0);
         zmq_recv(requester, buffer, 10, 0);
-        cout << "Received World " << request_nbr << "\n";
+        cout << "Received reply " << seq_num << "\n";
+        ++seq_num;
+        if (seq_num > 128) break;
     }
     zmq_close(requester);
     zmq_ctx_destroy(context);
@@ -40,5 +44,7 @@ int main()
     order_book<order> book;
     book.add_order();
 
-    thing();
+    thread listener(listen);
+
+    listener.join();
 }

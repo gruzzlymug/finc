@@ -10,6 +10,7 @@ type := bin
 include_path_list := $(def_path)/include
 
 #compiler_flag_list := -Wno-crappy-warnings
+link_flag_list := -pthread
 
 source_lib_list := zmq
 
