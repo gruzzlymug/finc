@@ -46,7 +46,7 @@ void listen(void *context)
         if (seq_num > 100) break;
     }
     cout << "Average temperature for zipcode " << filter
-         << " was " << static_cast<int>(total_temp / seq_num) << endl;
+         << " was " << static_cast<int>(total_temp / seq_num) << "F\n";
     zmq_close(subscriber);
     zmq_ctx_destroy(context);
 }
